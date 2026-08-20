@@ -1,0 +1,14 @@
+package com.mateodev.demo.repository;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.mateodev.demo.entity.User;
+
+public interface UserRepository extends JpaRepository<User, Long>{
+
+    Optional< User> finByEmail (String email);
+    boolean existsByEmail(String email);
+
+}
