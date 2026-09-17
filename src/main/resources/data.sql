@@ -1,15 +1,3 @@
-json
-[
-  {
-    "id": 1,
-    "nombre": "Ana Pérez",
-    "email": "ana@mail.com",
-    "edad": 25
-  },
-  {
-    "id": 2,
-    "nombre": "Luis Gómez",
-    "email": "luis@mail.com",
-    "edad": 30
-  }
-]
+INSERT INTO usuario (nombre, email, edad) VALUES ('Ana Pérez', 'ana@mail.com', 25);
+INSERT INTO usuario (nombre, email, edad) VALUES ('Luis Gómez', 'luis@mail.com', 30);
+INSERT INTO usuario (nombre, email, edad) VALUES ('María Ruiz', 'maria@mail.com', 28);
