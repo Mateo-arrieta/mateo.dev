@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.ManyToAny;
 
 import com.mateodev.demo.entity.enums.TransactionType;
 
@@ -17,7 +16,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,40 +29,33 @@ import lombok.Setter;
 @Table(name = "transactions")
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
-
-
+@NoArgsConstructor
+@AllArgsConstructor
 public class Transaction {
 
-        @Id
-        @GeneratedValue (strategy = GenerationType.IDENTITY)
-        private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "source_account_id")
+    private Account sourceAccount;
 
-        @ManyToAny(fetch = FetchType.LAZY)
-        @JoinColumn(name = "source_account_id")
-        private Account sourceAccount;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "destination_account_id")
+    private Account destinationAccount;
 
+    @Column(nullable = false, precision = 15, scale = 2)
+    private BigDecimal amount;
 
-        @ManyToAny(fetch = FetchType.LAZY)
-        @JoinColumn(name = "destination_account_id")
-        private Account destinatiAccount;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TransactionType transactionType;
 
+    private String description;
 
-        @Column(nullable = false, precision = 15, scale = 2)
-        private BigDecimal amount;
-
-        @Column(nullable = false)
-        @Enumerated(EnumType.STRING)
-        private TransactionType transactionType;
-
-
-        @Column(length = 255)
-        private String description;
-
-        @CreationTimestamp
-        @Column(updatable = false)
-        private LocalDateTime timestamp;
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime timestamp;
 }

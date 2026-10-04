@@ -23,7 +23,7 @@ public class AccountServiceImpl implements AccountService{
 
     @Override  //esto es para llamar clases abstractas o interfaces
     public List<AccountResponse> getUserAccounts(String email){
-        User user = userRepository.finByEmail(email).orElseThrow(()-> new ResourceNotFoundException("Usuario no encontardo con el email: "+email));
+        User user = userRepository.findByEmail(email).orElseThrow(()-> new ResourceNotFoundException("Usuario no encontardo con el email: "+email));
 
         return accountRepository.findByUserId(user.getId())
                 .stream()
